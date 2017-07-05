@@ -16,8 +16,18 @@ limitations under the License.
 
 package main
 
-import "log"
+import (
+	"fmt"
+	"log"
+	"net/http"
+)
 
 func main() {
-	log.Printf("hello, world!")
+	http.HandleFunc("/", handler) // each request calls handler
+	log.Fatal(http.ListenAndServe("localhost:8000", nil))
+}
+
+// handler echoes the Path component of the request URL r.
+func handler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, `{"Status":1,"Message":"","Data":[{"logonAddr":"p103.tdstoy.com","versionAndroid":3,"versionIOS":5,"logonPort":9185,"msgAddr":"http://www.tdzcc.com","messageAddr":"p103.tdstoy.com","msgPort":9183,"urlAddr":"http://www.tdzcc.com","downloadUrlAndroid":"https://app.td3g.com/GW.html","downloadUrlIOS":"https://itunes.apple.com/cn/app/tdqp2/id1222825360?l=zh&ls=1&mt=8"}]}`)
 }
